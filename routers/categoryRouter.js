@@ -1,5 +1,10 @@
 import express from "express";
-import { createCategory, getCategories } from "../model/categoryModel.js";
+import {
+  createCategory,
+  getCategories,
+  deleteCategory,
+  updateCategory,
+} from "../model/categoryModel.js";
 import { adminAuth } from "../middleware/authMiddleware/authMiddleware.js";
 import {
   buildErrorResponse,
@@ -49,6 +54,33 @@ categoryRouter.post("/", async (req, res) => {
     // buildErrorResponse(res, "Could not create category.");
   } catch (error) {
     buildErrorResponse(res, "Could not create category.");
+  }
+});
+
+//Private route | Update
+categoryRouter.patch("/", async (req, res) => {
+  try {
+    const category = await updateCategory(req.body);
+    return category?._id
+      ? buildSuccessResponse(res, category, "Category updated successfully")
+      : buildErrorResponse(res, "Could not update category.");
+  } catch (error) {}
+});
+
+//Private route |  delete
+categoryRouter.delete("/", async (req, res) => {
+  try {
+    const categoryToDelete = await deleteCategory(req.body._id);
+
+    return categoryToDelete?._id
+      ? buildSuccessResponse(
+          res,
+          categoryToDelete,
+          "Category deleted successfully"
+        )
+      : buildErrorResponse(res, "Could not delete category.");
+  } catch (error) {
+    buildErrorResponse(res, "Could not delete category.");
   }
 });
 
