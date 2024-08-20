@@ -2,14 +2,19 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
+    parentCategory: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      default: "active",
+    },
     name: {
       type: String,
       required: true,
     },
-    thumbnail: {
-      type: String,
-      required: true,
-    },
+
     price: {
       type: Number,
       required: true,
@@ -38,11 +43,24 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    thumbnail: {
+      type: String,
+      required: true,
+    },
+    images: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-// Categories
+// Product
 export default mongoose.model("Product", productSchema);
