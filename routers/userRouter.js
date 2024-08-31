@@ -26,27 +26,14 @@ userRouter.post("/login", async (req, res) => {
     if (!user?._id) {
       return buildErrorResponse(res, "User account does not exist!");
     }
+    // compare the password
+    const isPasswordMatched = comparePassword(password, user.password);
 
-    if (user?.role !== "admin") {
-      return buildErrorResponse(
-        res,
-        "You are not authorized to access this app"
-      );
+    if (isPasswordMatched) {
+      const jwt = await generateJWTs(user.email);
+      return buildSuccessResponse(res, jwt, "Logged in successfully");
     }
-
-    if (user?._id) {
-      // compare the password
-      const isPasswordMatched = comparePassword(password, user.password);
-
-      if (isPasswordMatched) {
-        const jwt = await generateJWTs(user.email);
-        return buildSuccessResponse(res, jwt, "Logged in successfully");
-      }
-
-      return buildErrorResponse(res, "Invalid Credentials");
-    }
-
-    buildErrorResponse(res, "Invalid Credentials!");
+    return buildErrorResponse(res, "Invalid Credentials");
   } catch (error) {
     buildErrorResponse(res, "Invalid Credentials!");
   }

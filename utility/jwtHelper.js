@@ -45,7 +45,6 @@ export const generateRefreshJWT = async (email) => {
 
 // generate tokens
 export const generateJWTs = async (email) => {
-  console.log("entered genetate");
   return {
     accessJWT: await generateAccessJWT(email),
     refreshJWT: await generateRefreshJWT(email),

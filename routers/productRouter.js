@@ -71,9 +71,9 @@ productRouter.patch("/", async (req, res) => {
     //   : buildErrorResponse(res, "Could not update the product!")
     // }
 
-    const { thumbnail, image, ...rest } = req.body;
+    //const { thumbnail, image, ...rest } = req.body;
 
-    const product = await updateProduct(rest);
+    const product = await updateProduct(req.body);
 
     product?._id
       ? buildSuccessResponse(res, product, "Product Updated Successfully.")

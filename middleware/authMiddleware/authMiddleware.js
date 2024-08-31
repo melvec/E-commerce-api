@@ -19,7 +19,6 @@ export const adminAuth = async (req, res, next) => {
 
     // validate if accessJWT is valid
     const decoded = verifyAccessJWT(token);
-    console.log(decoded);
 
     if (decoded?.email) {
       const sessionToken = await getSession({
@@ -30,7 +29,7 @@ export const adminAuth = async (req, res, next) => {
       if (sessionToken?._id) {
         const user = await findUserByEmail(decoded.email);
 
-        if (user?._id && user?.role === "admin") {
+        if (user?._id) {
           user.password = undefined;
           req.userInfo = user;
 
