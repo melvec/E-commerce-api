@@ -1,8 +1,8 @@
 import addressSchema from "../schema/addressSchema.js";
 
 //Get all addresses from a user
-export const getAddresses = (user) => {
-  return addressSchema.find(user);
+export const getAddresses = (userId) => {
+  return addressSchema.find({ user: userId });
 };
 
 //Create an address

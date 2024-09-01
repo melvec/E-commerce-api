@@ -12,17 +12,35 @@ import {
 
 const addressRouter = express.Router();
 
-//get addresses of a user
-addressRouter.get("/", async (req, res) => {
+// //get addresses of a user
+// addressRouter.get("/", async (req, res) => {
+//   try {
+//     const addresses = await getAddresses();
+
+//     addresses?.length
+//       ? buildSuccessResponse(res, addresses, "addresses")
+//       : buildErrorResponse(res, "Could not fetch daata");
+//   } catch (error) {
+//     buildErrorResponse(res, "Could not fetch daata");
+//   }
+// });
+
+addressRouter.get("/:userId", async (req, res) => {
   try {
-    const { user } = req.body;
-    const addresses = await getAddresses(user);
+    // Assuming you're getting the user ID from query parameters
+    const userId = req.params.userId;
+    if (!userId) {
+      return buildErrorResponse(res, "User ID is required");
+    }
+
+    const addresses = await getAddresses(userId);
 
     addresses?.length
-      ? buildSuccessResponse(res, addresses, "addresses")
-      : buildErrorResponse(res, "Could not fetch daata");
+      ? buildSuccessResponse(res, addresses, "Addresses fetched successfully")
+      : buildErrorResponse(res, "No addresses found for this user");
   } catch (error) {
-    buildErrorResponse(res, "Could not fetch daata");
+    console.error("Error fetching addresses:", error);
+    buildErrorResponse(res, "Could not fetch data");
   }
 });
 
@@ -38,6 +56,7 @@ addressRouter.post("/", async (req, res) => {
     buildErrorResponse(res, "Could not create the address");
   }
 });
+
 addressRouter.patch("/", async (req, res) => {
   try {
     const address = await updateAddress(req.body);
