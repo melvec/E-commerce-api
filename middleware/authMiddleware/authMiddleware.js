@@ -40,7 +40,7 @@ export const adminAuth = async (req, res, next) => {
 
     throw new Error("Invalid token, unauthorized");
   } catch (error) {
-    return res.send(400, error); //buildErrorResponse(res, error.message || "Invalid token!!");
+    return res.status(400).send(error); //buildErrorResponse(res, error.message || "Invalid token!!");
   }
 };
 

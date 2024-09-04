@@ -6,6 +6,7 @@ import userRouter from "./routers/userRouter.js";
 import categoryRouter from "./routers/categoryRouter.js";
 import productRouter from "./routers/productRouter.js";
 import addressRouter from "./routers/addressRouter.js";
+import orderRouter from "./routers/orderRouter.js";
 import Stripe from "stripe";
 
 const app = express();
@@ -23,6 +24,7 @@ app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/address", addressRouter);
+app.use("/api/order", orderRouter);
 
 app.post("/create-payment-intent", async (req, res) => {
   try {

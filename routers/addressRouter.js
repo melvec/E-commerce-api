@@ -12,19 +12,6 @@ import {
 
 const addressRouter = express.Router();
 
-// //get addresses of a user
-// addressRouter.get("/", async (req, res) => {
-//   try {
-//     const addresses = await getAddresses();
-
-//     addresses?.length
-//       ? buildSuccessResponse(res, addresses, "addresses")
-//       : buildErrorResponse(res, "Could not fetch daata");
-//   } catch (error) {
-//     buildErrorResponse(res, "Could not fetch daata");
-//   }
-// });
-
 addressRouter.get("/:userId", async (req, res) => {
   try {
     // Assuming you're getting the user ID from query parameters
@@ -46,13 +33,11 @@ addressRouter.get("/:userId", async (req, res) => {
 
 addressRouter.post("/", async (req, res) => {
   try {
-    console.log(req.body);
     const address = await createAddress(req.body);
     address?.id
       ? buildSuccessResponse(res, address, "Address created successfully")
       : buildErrorResponse(res, "Could not create the address");
   } catch (error) {
-    console.log(error);
     buildErrorResponse(res, "Could not create the address");
   }
 });
