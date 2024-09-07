@@ -1,8 +1,13 @@
 import orderSchema from "../schema/orderSchema.js";
 
-//Get all addresses from a user
-export const getOrders = (userId) => {
+//Get order per user
+export const getOrder = (userId) => {
   return orderSchema.find({ user: userId });
+};
+
+//Get all orders | private
+export const getOrders = () => {
+  return orderSchema.find();
 };
 
 //Create an order
