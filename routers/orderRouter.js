@@ -1,5 +1,5 @@
 import express from "express";
-import { createOrder, getOrders } from "../model/orderModel.js";
+import { createOrder, getOrder, getOrders } from "../model/orderModel.js";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -31,6 +31,20 @@ orderRouter.get("/", async (req, res) => {
       : buildErrorResponse(res, "Could not fetch data");
   } catch (error) {
     buildErrorResponse(res, "Could not fetch data");
+  }
+});
+
+orderRouter.get("/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const orders = await getOrder(userId);
+
+    orders?.length
+      ? buildSuccessResponse(res, orders, "orders")
+      : buildErrorResponse(res, "Could not fetch orders");
+  } catch (error) {
+    buildErrorResponse(res, "Could not fetch orders");
   }
 });
 
