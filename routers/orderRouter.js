@@ -1,5 +1,10 @@
 import express from "express";
-import { createOrder, getOrder, getOrders } from "../model/orderModel.js";
+import {
+  createOrder,
+  getOrder,
+  getOrders,
+  updateOrder,
+} from "../model/orderModel.js";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -45,6 +50,19 @@ orderRouter.get("/:userId", async (req, res) => {
       : buildErrorResponse(res, "Could not fetch orders");
   } catch (error) {
     buildErrorResponse(res, "Could not fetch orders");
+  }
+});
+
+// Update order status
+orderRouter.patch("/", async (req, res) => {
+  try {
+    const order = await updateOrder(req.body);
+
+    order?._id
+      ? buildSuccessResponse(res, order, "Order Updated Successfully.")
+      : buildErrorResponse(res, "Could not update the order!");
+  } catch (error) {
+    buildErrorResponse(res, error?.message);
   }
 });
 

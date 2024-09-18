@@ -45,34 +45,6 @@ productRouter.post("/", async (req, res) => {
 // Update
 productRouter.patch("/", async (req, res) => {
   try {
-    // if(req.file){
-    //   const uploadResult = await new Promise((resolve) => {
-    //     cloudinary.uploader.upload_stream({ folder: 'Product' }, (error, uploadResult) => {
-    //       if(error) {
-    //         return reject(error)
-    //       }
-
-    //       return resolve(uploadResult);
-    //     }).end(req.file.buffer);
-    //   });
-
-    //   req.body.thumbnail = uploadResult?.secure_url
-
-    //   // Create a slug | url friendly product name
-    //   req.body.slug = slugify(req.body.name, {
-    //     lower: true,
-    //     trim: true
-    //   })
-
-    //   const product = await updateproduct(req.body)
-
-    //   product?._id
-    //   ? buildSuccessResponse(res, product, "Product Updated Successfully.")
-    //   : buildErrorResponse(res, "Could not update the product!")
-    // }
-
-    //const { thumbnail, image, ...rest } = req.body;
-
     const product = await updateProduct(req.body);
 
     product?._id

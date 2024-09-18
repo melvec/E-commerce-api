@@ -15,8 +15,9 @@ export const createOrder = (orderObj) => {
   return orderSchema(orderObj).save();
 };
 
-//UPDATE
+//UPDATE order status
 export const updateOrder = (updatedObject) => {
+  console.log(updatedObject);
   return orderSchema.findByIdAndUpdate(updatedObject?._id, updatedObject, {
     new: true,
   });
