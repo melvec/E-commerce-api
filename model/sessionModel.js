@@ -7,7 +7,6 @@ export const getSession = (filter) => {
 
 //Create
 export const createSession = (sessionObj) => {
-  console.log("create session entered");
   return sessionSchema(sessionObj).save();
 };
 

@@ -25,7 +25,6 @@ export const generateAccessJWT = async (email) => {
 
     return accessToken;
   } catch (error) {
-    console.error("Error generating access JWT:", error.message);
     throw error; // rethrow the error for further handling
   }
 };
